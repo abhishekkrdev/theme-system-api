@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 
 const router = require('express').Router();
 
@@ -54,7 +53,9 @@ router.post('/', async (req, res) => {
     // send the token in a HTTP-only cookie
 
     res.cookie('token', token, {
-      httpOnly: true
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
     });
 
     res.json({ msg: 'Registration successfull' });
@@ -94,7 +95,9 @@ router.post('/login', async (req, res) => {
     );
 
     res.cookie('token', token, {
-      httpOnly: true
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
     });
 
     res.json({ msg: 'Login successfull' });
@@ -108,6 +111,8 @@ router.get('/logout', (req, res) => {
   try {
     res.cookie('token', '', {
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
       expires: new Date(0)
     });
 
