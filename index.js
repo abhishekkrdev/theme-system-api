@@ -7,7 +7,6 @@ const cors = require('cors');
 dotenv.config();
 
 const userRouter = require('./routes/userRouter');
-const customerRouter = require('./routes/customerRouter');
 
 // Set Up Server
 const app = express();
@@ -31,5 +30,6 @@ mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, (err) => {
   console.log('Connected To Mongo Db');
 });
 
+app.get('/', (req, res) => res.json({ projectName: 'theme-system' }));
+
 app.use('/auth', userRouter);
-app.use('/customer', customerRouter);
